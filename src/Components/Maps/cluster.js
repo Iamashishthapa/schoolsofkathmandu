@@ -21,15 +21,22 @@ function Cluster(props) {
     const geojsonLayer = L.geoJson(null, {
       filter: dataFilter,
       pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+        return L.marker(latlng, { icon: Icon });
       },
       onEachFeature: onEachFeature,
     });
-    const mcg = L.markerClusterGroup().addTo(map);
+    const mcg = L.markerClusterGroup({
+      maxClusterRadius: 50,
+      disableClusteringAtZoom: 16,
+      spiderfyOnMaxZoom: 16,
+    }).addTo(map);
     geojsonLayer.addData(datatest1).addTo(mcg);
     map.addLayer(cluster);
     // eslint-disable-next-line
   }, []);
+  var Icon = L.icon({
+    iconUrl: require("../../Assets/backpack.png"),
+  });
 
   const cluster = L.markerClusterGroup();
 
@@ -49,15 +56,6 @@ function Cluster(props) {
       feature.geometry.type = "Point";
     }
   });
-
-  const geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8,
-  };
 
   const dataFilter = (feature) => {
     if (
@@ -79,12 +77,16 @@ function Cluster(props) {
     const geojsonLayer = L.geoJson(null, {
       filter: dataFilter,
       pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+        return L.marker(latlng, { icon: Icon });
       },
       onEachFeature: onEachFeature,
     });
     const geojsonLayer1 = L.geoJson(district);
-    const mcg = L.markerClusterGroup().addTo(map);
+    const mcg = L.markerClusterGroup({
+      maxClusterRadius: 50,
+      disableClusteringAtZoom: 16,
+      spiderfyOnMaxZoom: 16,
+    }).addTo(map);
     map.addLayer(geojsonLayer1);
     geojsonLayer.addData(datatest1).addTo(mcg);
     map.addLayer(cluster);

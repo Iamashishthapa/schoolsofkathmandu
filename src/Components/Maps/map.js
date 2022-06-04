@@ -60,23 +60,32 @@ class Map extends Component {
         <MapContainer
           ref={this.mapRef}
           center={[27.700769, 85.30014]}
-          zoom={13}
-          maxZoom={20}
+          zoom={11}
+          maxZoom={19}
           scrollWheelZoom={true}
           zoomControl={false}
         >
           <ZoomControl position="topright" />
           <LayersControl position="bottomright">
-            <LayersControl.BaseLayer checked name="Map1">
+            <LayersControl.BaseLayer checked name="Light">
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                maxZoom={19}
               />
             </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="Map2">
+            <LayersControl.BaseLayer name="Dark">
               <TileLayer
                 attribution='© <a href="https://stadiamaps.com/">Stadia Maps</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
                 url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+                maxZoom={19}
+              />
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer name="Satellite">
+              <TileLayer
+                attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                maxZoom={19}
               />
             </LayersControl.BaseLayer>
             <GeoJSON data={district.features} attribution="ashish" />
