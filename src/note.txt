@@ -39,6 +39,9 @@
     ref:https://www.npmjs.com/package/react-leaflet-markercluster
     ref:https://medium.com/@eugenebelkovich/markercluster-for-leaflet-in-react-apps-38ce9ab96562
 
+9. Map effecting the side-navigator.
+    ref:https://stackoverflow.com/questions/29981236/how-do-you-hover-in-reactjs-onmouseleave-not-registered-during-fast-hover-ove
+
 
 
 {
@@ -72,51 +75,4 @@
 }
 
 
-<div className="form">
-        <form onSubmit={props.handleSubmit}>
-          <div className="breakline">
-            <label>
-              Number of Students
-              <input
-                id="student_count"
-                type="range"
-                min="0"
-                max="6000"
-                value={props.student_count === "" ? 0 : props.student_count}
-                step="1"
-                onChange={props.handleChange}
-              />
-              <input
-                className="breakline"
-                id="student_count"
-                type="text"
-                value={props.student_count}
-                onChange={props.handleChange}
-              />
-            </label>
-          </div>
-          <div className="breakline">
-            <label>
-              Number of Building
-              <input
-                id="building_count"
-                type="range"
-                min="0"
-                max="27"
-                value={props.building_count === "" ? 0 : props.building_count}
-                step="1"
-                onChange={props.handleChange}
-              />
-              <input
-                id="building_count"
-                type="text"
-                value={props.building_count}
-                onChange={props.handleChange}
-              />
-            </label>
-          </div>
-          <div className="breakline">
-            <input type="submit" value="Submit" className="submit" />
-          </div>
-        </form>
-      </div>
+

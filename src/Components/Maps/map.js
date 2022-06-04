@@ -75,8 +75,8 @@ class Map extends Component {
             </LayersControl.BaseLayer>
             <LayersControl.BaseLayer name="Map2">
               <TileLayer
-                attribution='Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-                url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+                attribution='© <a href="https://stadiamaps.com/">Stadia Maps</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
               />
             </LayersControl.BaseLayer>
             <GeoJSON data={district.features} attribution="ashish" />

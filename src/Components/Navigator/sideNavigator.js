@@ -1,9 +1,10 @@
 import { React, useState } from "react";
 import "./sideNavigator.css";
+import L from "leaflet";
 
 function SideNavigator(props) {
   const [isNavActive, setNavActive] = useState(false);
-  const [isDarkMode, setDarkMode] = useState(true);
+  const [isDarkMode, setDarkMode] = useState(false);
 
   const searchActive = () => {
     setNavActive(true);
@@ -13,7 +14,29 @@ function SideNavigator(props) {
   };
 
   const darkModeToggle = () => {
+    props.map.eachLayer(function (layer) {
+      if (layer.options.attribution !== null) {
+        props.map.removeLayer(layer);
+      }
+    });
+    var mapa1 = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }
+    );
+    if (!isDarkMode) {
+      mapa1 = L.tileLayer(
+        "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        {
+          attribution:
+            '© <a href="https://stadiamaps.com/">Stadia Maps</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        }
+      );
+    }
     setDarkMode(!isDarkMode);
+    mapa1.addTo(props.map);
   };
   const onMouseEnterHandler = () => {
     props.map.dragging.disable();
@@ -33,10 +56,12 @@ function SideNavigator(props) {
           <header>
             <div className="image-text">
               <span className="image">
-                <i
-                  className="bx bxs-school bx-md bx-tada-hover"
-                  style={{ color: isDarkMode ? "white" : "black" }}
-                ></i>
+                <i style={{ color: isDarkMode ? "white" : "black" }}>
+                  <img
+                    src={require("../../Assets/school.png")}
+                    alt="student"
+                  ></img>
+                </i>
               </span>
 
               <div className="text logo-text">
@@ -100,7 +125,12 @@ function SideNavigator(props) {
                     />
                   </li>
                   <li className="search-box" onClick={searchActive}>
-                    <i className="bx bx-buildings icon"></i>
+                    <i className="icon">
+                      <img
+                        src={require("../../Assets/schoolbuilding.png")}
+                        alt="student"
+                      ></img>
+                    </i>
                     <input
                       type="text"
                       id="building_count"
