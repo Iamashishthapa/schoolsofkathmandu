@@ -65,7 +65,6 @@ class Map extends Component {
           scrollWheelZoom={true}
           zoomControl={false}
         >
-          <Cluster></Cluster>
           <ZoomControl position="topright" />
           <LayersControl position="bottomright">
             <LayersControl.BaseLayer checked name="Map1">
@@ -81,7 +80,7 @@ class Map extends Component {
               />
             </LayersControl.BaseLayer>
             <GeoJSON data={district.features} attribution="ashish" />
-            <Cluster data={this.state}></Cluster>
+            <Cluster></Cluster>
           </LayersControl>
         </MapContainer>
       </div>

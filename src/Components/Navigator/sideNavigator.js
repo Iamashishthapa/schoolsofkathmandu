@@ -15,20 +15,33 @@ function SideNavigator(props) {
   const darkModeToggle = () => {
     setDarkMode(!isDarkMode);
   };
+  const onMouseEnterHandler = () => {
+    props.map.dragging.disable();
+  };
+  const onMouseLeaveHandler = () => {
+    props.map.dragging.enable();
+  };
 
   return (
-    <div className="body dark">
+    <div className={`body  ${isDarkMode ? "dark" : ""}`}>
       <div className="form">
-        <nav className={`sidebar ${isNavActive ? "" : "close"}`}>
+        <nav
+          className={`sidebar ${isNavActive ? "" : "close"}`}
+          onMouseEnter={onMouseEnterHandler}
+          onMouseLeave={onMouseLeaveHandler}
+        >
           <header>
             <div className="image-text">
               <span className="image">
-                <img src="logo.png" alt="" />
+                <i
+                  className="bx bxs-school bx-md bx-tada-hover"
+                  style={{ color: isDarkMode ? "white" : "black" }}
+                ></i>
               </span>
 
               <div className="text logo-text">
-                <span className="name">Codinglab</span>
-                <span className="profession">Web developer</span>
+                <span className="name">Schools</span>
+                <span className="profession">In Kathmandu</span>
               </div>
             </div>
 
@@ -37,47 +50,72 @@ function SideNavigator(props) {
 
           <div className="menu-bar">
             <div className="menu">
-              <li className="search-box" onClick={searchActive}>
-                <i className="bx bx-search icon"></i>
-                <input type="text" placeholder="Search..." />
-              </li>
+              <div>
+                <form onSubmit={props.handleSubmit} autoComplete="off">
+                  <li className="nav-link">
+                    <span className="text nav-text">Number of Students</span>
+                  </li>
+                  <li className="search-box">
+                    <input
+                      id="student_count"
+                      type="range"
+                      min="0"
+                      max="6000"
+                      value={
+                        props.student_count === "" ? 0 : props.student_count
+                      }
+                      step="1"
+                      onChange={props.handleChange}
+                    />
+                  </li>
+                  <li className="search-box" onClick={searchActive}>
+                    <i className="icon">
+                      <img
+                        src={require("../../Assets/students.png")}
+                        alt="student"
+                      ></img>
+                    </i>
+                    <input
+                      type="text"
+                      id="student_count"
+                      placeholder="Number of Students"
+                      value={props.student_count}
+                      onChange={props.handleChange}
+                    />
+                  </li>
+                  <li className="nav-link">
+                    <span className="text nav-text">Number of Buildings</span>
+                  </li>
+                  <li className="search-box">
+                    <input
+                      id="building_count"
+                      type="range"
+                      min="0"
+                      max="26"
+                      value={
+                        props.building_count === "" ? 0 : props.building_count
+                      }
+                      step="1"
+                      onChange={props.handleChange}
+                    />
+                  </li>
+                  <li className="search-box" onClick={searchActive}>
+                    <i className="bx bx-buildings icon"></i>
+                    <input
+                      type="text"
+                      id="building_count"
+                      placeholder="Number of Buildings"
+                      value={props.building_count}
+                      onChange={props.handleChange}
+                    />
+                  </li>
+                  <li className="search-box">
+                    <input type="submit" value="Submit" className="custom" />
+                  </li>
+                </form>
+              </div>
 
               <ul className="menu-links">
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-home-alt icon"></i>
-                    <span className="text nav-text">Dashboard</span>
-                  </a>
-                </li>
-
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-bar-chart-alt-2 icon"></i>
-                    <span className="text nav-text">Revenue</span>
-                  </a>
-                </li>
-
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-bell icon"></i>
-                    <span className="text nav-text">Notifications</span>
-                  </a>
-                </li>
-
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-pie-chart-alt icon"></i>
-                    <span className="text nav-text">Analytics</span>
-                  </a>
-                </li>
-
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-heart icon"></i>
-                    <span className="text nav-text">Likes</span>
-                  </a>
-                </li>
-
                 <li className="nav-link">
                   <a href="#">
                     <i className="bx bx-wallet icon"></i>
@@ -88,21 +126,16 @@ function SideNavigator(props) {
             </div>
 
             <div className="bottom-content">
-              <li className="">
-                <a href="#">
-                  <i className="bx bx-log-out icon"></i>
-                  <span className="text nav-text">Logout</span>
-                </a>
-              </li>
-
               <li className="mode">
                 <div className="sun-moon">
-                  <i className="bx bx-moon icon moon"></i>
                   <i className="bx bx-sun icon sun"></i>
+                  <i className="bx bx-moon icon moon"></i>
                 </div>
-                <span className="mode-text text">Dark mode</span>
+                <span className="mode-text text">
+                  {isDarkMode ? <div>Dark Mode</div> : <div>Light Mode</div>}
+                </span>
 
-                <div className="toggle-switch">
+                <div className="toggle-switch" onClick={darkModeToggle}>
                   <span className="switch"></span>
                 </div>
               </li>

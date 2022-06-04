@@ -126,6 +126,7 @@ function Cluster(props) {
         handleSubmit={handleSubmit}
         student_count={student_count}
         building_count={building_count}
+        map={map}
       ></SideNavigator>
       <div className="result">
         {hovering ? (
@@ -154,13 +155,5 @@ function Cluster(props) {
     </div>
   );
 }
-
-Cluster.defaultProps = {
-  hovering: null,
-  feature: null,
-  building_count: "",
-  student_count: "",
-  school_name: "",
-};
 
 export default Cluster;

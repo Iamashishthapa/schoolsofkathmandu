@@ -1,6 +1,8 @@
 .form{
     z-index:1001;
     position: absolute;
+    /* cursor: grab; */
+    /* pointer-events: auto; */
     /* left:0px ;
     top:0px;
     background-color: darkslategray;
@@ -254,13 +256,13 @@ header .image-text .profession{
 .mode .sun-moon i{
     position: absolute;
 }
-.mode .sun-moon i.sun{
+.mode .sun-moon i.moon{
     opacity: 0;
 }
-.body.dark .mode .sun-moon i.sun{
+.body.dark .mode .sun-moon i.moon{
     opacity: 1;
 }
-.body.dark .mode .sun-moon i.moon{
+.body.dark .mode .sun-moon i.sun{
     opacity: 0;
 }
 
@@ -325,4 +327,8 @@ header .image-text .profession{
 }
 .body.dark .home .text{
     color: var(--text-color);
+}
+
+.custom:hover{
+    background-color: green;
 }
