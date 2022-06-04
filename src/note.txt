@@ -1,0 +1,122 @@
+1. convert osm(json) data to geoJSON.
+    ref:https://tyrasd.github.io/osmtogeojson/
+
+2. convert geoJSON polygon to point.
+    ref:https://stackoverflow.com/questions/41664266/convert-geojson-polygon-to-point-before-drawing-in-leaflet-map
+
+3. to show data on hover(used bindTooltip).
+    ref:https://gis.stackexchange.com/questions/31951/showing-popup-on-mouse-over-not-on-click-using-leaflet
+        https://stackoverflow.com/questions/42831399/react-leaflet-mouseover-out-event-and-redux
+
+4. add map layer.
+    ref:https://leaflet-extras.github.io/leaflet-providers/preview/
+
+5. add remove leaflet layer.
+    ref:https://stackoverflow.com/questions/61881474/how-do-i-programatically-show-hide-a-layer-in-react-leaflet
+
+6. remove and add layer with new data and dataFilter.
+     const layeradd = () => {
+      console.log(this.mapRef);
+      const map = this.mapRef.current;
+      console.log(map);
+      this.firstOverlayRef.current.addData(datatest1);
+      // map.removeLayer(firstLayer);
+    };
+
+    const layerremove = () => {
+      console.log(this.mapRef);
+      const map = this.mapRef.current;
+      console.log(map);
+      this.firstOverlayRef.current.clearLayers();
+      this.setState({ building_count: 2 });
+      // map.addLayer(firstLayer);
+    };
+
+7. Filtering geoJSON.
+    ref:https://gis.stackexchange.com/questions/189988/filtering-geojson-data-to-include-in-leaflet-map
+
+8. Clustering datapoints.
+    ref:https://www.npmjs.com/package/react-leaflet-markercluster
+    ref:https://medium.com/@eugenebelkovich/markercluster-for-leaflet-in-react-apps-38ce9ab96562
+
+
+
+{
+    "type": "Feature",
+    "id": "way/221295253",
+    "properties": {
+        "amenity": "school",
+        "building_count": "2",
+        "isced:level": "lower_secondary",
+        "name": "Approach English School",
+        "operator:type": "private",
+        "personnel:count": "15",
+        "source": "OpenDRI survey",
+        "student_count": "190",
+        "id": "way/221295253"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            85.33676875,
+            27.749313200000003
+        ]
+    },
+    "polygonGeometry": {
+        "type": "Point",
+        "coordinates": [
+            85.33676875,
+            27.749313200000003
+        ]
+    }
+}
+
+
+<div className="form">
+        <form onSubmit={props.handleSubmit}>
+          <div className="breakline">
+            <label>
+              Number of Students
+              <input
+                id="student_count"
+                type="range"
+                min="0"
+                max="6000"
+                value={props.student_count === "" ? 0 : props.student_count}
+                step="1"
+                onChange={props.handleChange}
+              />
+              <input
+                className="breakline"
+                id="student_count"
+                type="text"
+                value={props.student_count}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+          <div className="breakline">
+            <label>
+              Number of Building
+              <input
+                id="building_count"
+                type="range"
+                min="0"
+                max="27"
+                value={props.building_count === "" ? 0 : props.building_count}
+                step="1"
+                onChange={props.handleChange}
+              />
+              <input
+                id="building_count"
+                type="text"
+                value={props.building_count}
+                onChange={props.handleChange}
+              />
+            </label>
+          </div>
+          <div className="breakline">
+            <input type="submit" value="Submit" className="submit" />
+          </div>
+        </form>
+      </div>
