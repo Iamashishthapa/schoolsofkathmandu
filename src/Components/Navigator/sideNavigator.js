@@ -42,9 +42,11 @@ function SideNavigator(props) {
   };
   const onMouseEnterHandler = () => {
     props.map.dragging.disable();
+    props.map.doubleClickZoom.disable();
   };
   const onMouseLeaveHandler = () => {
     props.map.dragging.enable();
+    props.map.doubleClickZoom.enable();
   };
 
   return (
@@ -141,20 +143,28 @@ function SideNavigator(props) {
                       onChange={props.handleChange}
                     />
                   </li>
+                  <ul className="menu-links">
+                    <li className="nav-link">
+                      <span className="text nav-text">Operator Type</span>
+                    </li>
+                    <li className="search-box">
+                      <select
+                        id="operator"
+                        className="selectid"
+                        onChange={props.handleChange}
+                      >
+                        <option value="" selected></option>
+                        <option value="government">Government</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                      </select>
+                    </li>
+                  </ul>
                   <li className="search-box">
                     <input type="submit" value="Submit" className="custom" />
                   </li>
                 </form>
               </div>
-
-              <ul className="menu-links">
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-wallet icon"></i>
-                    <span className="text nav-text">Wallets</span>
-                  </a>
-                </li>
-              </ul>
             </div>
 
             <div className="bottom-content">

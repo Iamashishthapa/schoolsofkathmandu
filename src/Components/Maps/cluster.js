@@ -14,6 +14,7 @@ import "./cluster.css";
 function Cluster(props) {
   const [building_count, setbuilding_count] = useState("");
   const [student_count, setstudent_count] = useState("");
+  const [operator, setOperator] = useState("");
   const [feature, setfeature] = useState("");
   const [hovering, sethovering] = useState(false);
 
@@ -58,14 +59,45 @@ function Cluster(props) {
   });
 
   const dataFilter = (feature) => {
-    if (
-      feature.properties.name !== undefined &&
-      (feature.properties.building_count >= parseInt(building_count) ||
-        building_count === "") &&
-      (feature.properties.student_count >= parseInt(student_count) ||
-        student_count === "")
-    )
-      return true;
+    const regex1 = /gove/i;
+    const regex2 = /publ/i;
+    const regex3 = /priv/i;
+    if (operator === "government") {
+      return (
+        feature.properties.name !== undefined &&
+        (feature.properties.building_count >= parseInt(building_count) ||
+          building_count === "") &&
+        (feature.properties.student_count >= parseInt(student_count) ||
+          student_count === "") &&
+        (regex1.test(feature.properties.operator) || operator === "")
+      );
+    } else if (operator === "public") {
+      return (
+        feature.properties.name !== undefined &&
+        (feature.properties.building_count >= parseInt(building_count) ||
+          building_count === "") &&
+        (feature.properties.student_count >= parseInt(student_count) ||
+          student_count === "") &&
+        (regex2.test(feature.properties.operator) || operator === "")
+      );
+    } else if (operator === "private") {
+      return (
+        feature.properties.name !== undefined &&
+        (feature.properties.building_count >= parseInt(building_count) ||
+          building_count === "") &&
+        (feature.properties.student_count >= parseInt(student_count) ||
+          student_count === "") &&
+        (regex3.test(feature.properties.operator) || operator === "")
+      );
+    } else {
+      return (
+        feature.properties.name !== undefined &&
+        (feature.properties.building_count >= parseInt(building_count) ||
+          building_count === "") &&
+        (feature.properties.student_count >= parseInt(student_count) ||
+          student_count === "")
+      );
+    }
   };
 
   const layeradd = () => {
@@ -102,10 +134,9 @@ function Cluster(props) {
       setbuilding_count(event.target.value);
     } else if (event.target.id === "student_count") {
       setstudent_count(event.target.value);
+    } else if (event.target.id === "operator") {
+      setOperator(event.target.value);
     }
-    // } else if (event.target.id === "school_name") {
-    //   this.setState({ school_name: event.target.value });
-    // }
   };
 
   const onEachFeature = (feature, layer) => {
@@ -150,6 +181,12 @@ function Cluster(props) {
               {feature.properties.student_count === undefined
                 ? " Not Available"
                 : feature.properties.student_count}
+            </p>
+            <p>
+              Operator Type:
+              {feature.properties.operator === undefined
+                ? " Not Available"
+                : feature.properties.operator}
             </p>
           </div>
         ) : null}
