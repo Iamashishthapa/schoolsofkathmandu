@@ -32,8 +32,11 @@ function Cluster(props) {
       disableClusteringAtZoom: 16,
       spiderfyOnMaxZoom: 16,
     }).addTo(map);
+    const geojsonLayer1 = L.geoJson(district);
+    map.addLayer(geojsonLayer1);
     geojsonLayer.addData(datatest1).addTo(mcg);
     map.addLayer(cluster);
+
     // eslint-disable-next-line
   }, []);
   var Icon = L.icon({
