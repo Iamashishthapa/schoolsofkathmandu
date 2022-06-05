@@ -9,13 +9,14 @@ import "../../dist/MarkerCluster.Default.css";
 import { useState } from "react";
 import district from "./kathmandu.json";
 import SideNavigator from "../Navigator/sideNavigator";
-import "./cluster.css";
 
 function Cluster(props) {
   const [building_count, setbuilding_count] = useState("");
   const [student_count, setstudent_count] = useState("");
   const [operator, setOperator] = useState("");
+  const [level, setLevel] = useState("");
   const [feature, setfeature] = useState("");
+  const [mousePosition, setMousePosition] = useState([""]);
   const [hovering, sethovering] = useState(false);
 
   useEffect(() => {
@@ -59,45 +60,43 @@ function Cluster(props) {
   });
 
   const dataFilter = (feature) => {
-    const regex1 = /gove/i;
-    const regex2 = /publ/i;
-    const regex3 = /priv/i;
+    const opregex1 = /gove/i;
+    const opregex2 = /publ/i;
+    const opregex3 = /priv/i;
+    const leregex1 = /kind/i;
+    const leregex2 = /prim/i;
+    const leregex3 = /lowe/i;
+    const leregex4 = /seco|high/i;
+    var opwhat = false;
+    var lewhat = false;
+
     if (operator === "government") {
-      return (
-        feature.properties.name !== undefined &&
-        (feature.properties.building_count >= parseInt(building_count) ||
-          building_count === "") &&
-        (feature.properties.student_count >= parseInt(student_count) ||
-          student_count === "") &&
-        (regex1.test(feature.properties.operator) || operator === "")
-      );
+      opwhat = opregex1.test(feature.properties.operator);
     } else if (operator === "public") {
-      return (
-        feature.properties.name !== undefined &&
-        (feature.properties.building_count >= parseInt(building_count) ||
-          building_count === "") &&
-        (feature.properties.student_count >= parseInt(student_count) ||
-          student_count === "") &&
-        (regex2.test(feature.properties.operator) || operator === "")
-      );
+      opwhat = opregex2.test(feature.properties.operator);
     } else if (operator === "private") {
-      return (
-        feature.properties.name !== undefined &&
-        (feature.properties.building_count >= parseInt(building_count) ||
-          building_count === "") &&
-        (feature.properties.student_count >= parseInt(student_count) ||
-          student_count === "") &&
-        (regex3.test(feature.properties.operator) || operator === "")
-      );
-    } else {
-      return (
-        feature.properties.name !== undefined &&
-        (feature.properties.building_count >= parseInt(building_count) ||
-          building_count === "") &&
-        (feature.properties.student_count >= parseInt(student_count) ||
-          student_count === "")
-      );
+      opwhat = opregex3.test(feature.properties.operator);
     }
+
+    if (level === "kindergarten") {
+      lewhat = leregex1.test(feature.properties.level);
+    } else if (level === "primary") {
+      lewhat = leregex2.test(feature.properties.level);
+    } else if (level === "lower_secondary") {
+      lewhat = leregex3.test(feature.properties.level);
+    } else if (level === "higher_secondary") {
+      lewhat = leregex4.test(feature.properties.level);
+    }
+
+    return (
+      feature.properties.name !== undefined &&
+      (feature.properties.building_count >= parseInt(building_count) ||
+        building_count === "") &&
+      (feature.properties.student_count >= parseInt(student_count) ||
+        student_count === "") &&
+      (opwhat || operator === "") &&
+      (lewhat || level === "")
+    );
   };
 
   const layeradd = () => {
@@ -136,18 +135,20 @@ function Cluster(props) {
       setstudent_count(event.target.value);
     } else if (event.target.id === "operator") {
       setOperator(event.target.value);
+    } else if (event.target.id === "level") {
+      setLevel(event.target.value);
     }
   };
 
   const onEachFeature = (feature, layer) => {
     layer.on({
       mouseover: (e) => {
+        setMousePosition([e.containerPoint.x, e.containerPoint.y]);
         sethovering(true);
         setfeature(feature);
       },
       mouseout: (e) => {
         sethovering(false);
-        setfeature(feature);
       },
     });
   };
@@ -160,37 +161,10 @@ function Cluster(props) {
         student_count={student_count}
         building_count={building_count}
         map={map}
+        mousePosition={mousePosition}
+        feature={feature}
+        hovering={hovering}
       ></SideNavigator>
-      <div className="result">
-        {hovering ? (
-          <div
-            style={{
-              color: "red",
-              backgroundColor: "black",
-            }}
-          >
-            <p>School Name:{feature.properties.name}</p>
-            <p>
-              Number of Building:
-              {feature.properties.building_count === undefined
-                ? " Not Available"
-                : feature.properties.building_count}
-            </p>
-            <p>
-              Number of Student:
-              {feature.properties.student_count === undefined
-                ? " Not Available"
-                : feature.properties.student_count}
-            </p>
-            <p>
-              Operator Type:
-              {feature.properties.operator === undefined
-                ? " Not Available"
-                : feature.properties.operator}
-            </p>
-          </div>
-        ) : null}
-      </div>
     </div>
   );
 }

@@ -74,5 +74,44 @@
     }
 }
 
+<div className={`result ${mode} ${resultClass}`}>
+        {" "}
+        <p className="school">{props.feature.properties.name} </p>{" "}
+        <p>
+          <img
+            className="icon1"
+            src={require("../../Assets/students.png")}
+            alt="student"
+          ></img>{" "}
+          {props.feature.properties.student_count === undefined
+            ? " Not Available"
+            : props.feature.properties.student_count}{" "}
+        </p>{" "}
+        <p>
+          <img
+            className="icon1"
+            src={require("../../Assets/schoolbuilding.png")}
+            alt="student"
+          ></img>
+          {"   "}
+          {props.feature.properties.building_count === undefined
+            ? " Not Available"
+            : props.feature.properties.building_count}{" "}
+        </p>
+        {"   "}
+        <p className="text">
+          Operator Type:{"  "}
+          {props.feature.properties.operator === undefined
+            ? " Not Available"
+            : props.feature.properties.operator}{" "}
+        </p>{" "}
+        <p className="text">
+          Level:{"  "}
+          {props.feature.properties.level === undefined
+            ? " Not Available"
+            : props.feature.properties.level}{" "}
+        </p>{" "}
+      </div>
+
 
 
