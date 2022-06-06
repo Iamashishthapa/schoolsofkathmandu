@@ -68,17 +68,17 @@
 
 .bottomrightactive {
     left: 260px;
-    bottom: 10px;
+    top: 10px;
     
 }
 
 .bottomrightdisactive {
     left: 92px;
-    bottom: 10px;
+    top: 10px;
     
 }
 
 .bottomleft {
     right: 10px;
-    bottom: 10px;
+    top: 10px;
 }
