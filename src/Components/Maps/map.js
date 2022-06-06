@@ -22,8 +22,8 @@ class Map extends Component {
     return (
       <div>
         <MapContainer
-          center={[27.700769, 85.30014]}
-          zoom={12}
+          center={[27.700769, 85.32614]}
+          zoom={13}
           maxZoom={19}
           scrollWheelZoom={true}
           zoomControl={false}
