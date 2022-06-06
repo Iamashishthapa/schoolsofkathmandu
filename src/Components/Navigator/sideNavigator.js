@@ -1,19 +1,23 @@
 import { React, useState } from "react";
-import Result from "./result";
-import "./sideNavigator.css";
+
 import L from "leaflet";
 
-function SideNavigator(props) {
-  const [isNavActive, setNavActive] = useState(false);
-  const [isDarkMode, setDarkMode] = useState(false);
+import "./sideNavigator.css";
 
+import Result from "./result"; //hovering result component
+
+function SideNavigator(props) {
+  const [isNavActive, setNavActive] = useState(false); //is navigator open or close
+  const [isDarkMode, setDarkMode] = useState(false); //darkmode
+
+  //to toggle navigator(open and close navigator)
   const searchActive = () => {
     setNavActive(true);
   };
   const navClicked = () => {
     setNavActive(!isNavActive);
   };
-
+  //mode of app(light and dark)
   const darkModeToggle = () => {
     props.map.eachLayer(function (layer) {
       if (layer.options.attribution !== null) {
@@ -41,6 +45,7 @@ function SideNavigator(props) {
     setDarkMode(!isDarkMode);
     mapa1.addTo(props.map);
   };
+  //when map enters sidenavigator disable map mouse functions.
   const onMouseEnterHandler = () => {
     props.map.dragging.disable();
     props.map.doubleClickZoom.disable();

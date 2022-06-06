@@ -6,61 +6,24 @@ import {
   LayersControl,
   ZoomControl,
 } from "react-leaflet";
-import * as turf from "@turf/turf";
 import "leaflet.markercluster";
+
+//css import section
 import "./map.css";
-import district from "./kathmandu.json";
-import datatest from "./data.json"; //this is the main data which is in osm form
-import Cluster from "./cluster";
+
+//data import section
+import district from "./kathmandu.json"; //this is the border geojsom data of Kathmandu
+
+//component import section
+import Cluster from "./cluster"; //each school is clustered and added to map from this component
 
 class Map extends Component {
-  constructor(props) {
-    super(props);
-    this.mapRef = React.createRef();
-    this.firstOverlayRef = React.createRef();
-    this.secondOverlayRef = React.createRef();
-    this.groupRef = React.createRef();
-  }
-
-  state = {
-    hovering: null,
-    feature: null,
-    building_count: "",
-    student_count: "",
-    school_name: "",
-  };
-
-  geojsonMarkerOptions = {
-    radius: 8,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8,
-  };
-
   render() {
-    var osmtogeojson = require("osmtogeojson");
-
-    const datatest1 = osmtogeojson(datatest);
-
-    datatest1.features.forEach(function (feature) {
-      if (feature.geometry.type === "Polygon") {
-        feature.polygonGeometry = feature.geometry;
-        var centroid = turf.centroid(feature);
-        var lat = centroid.geometry.coordinates[0];
-        var lon = centroid.geometry.coordinates[1];
-        feature.geometry.coordinates = [lat, lon];
-        feature.geometry.type = "Point";
-      }
-    });
-
     return (
       <div>
         <MapContainer
-          ref={this.mapRef}
           center={[27.700769, 85.30014]}
-          zoom={11}
+          zoom={12}
           maxZoom={19}
           scrollWheelZoom={true}
           zoomControl={false}
@@ -88,7 +51,9 @@ class Map extends Component {
                 maxZoom={19}
               />
             </LayersControl.BaseLayer>
-            <GeoJSON data={district.features} attribution="ashish" />
+            {/*displays border of kathmandu*/}
+            <GeoJSON data={district.features} fillOpacity={0} />
+            {/*Each school is clustered and added to map from this component*/}
             <Cluster></Cluster>
           </LayersControl>
         </MapContainer>

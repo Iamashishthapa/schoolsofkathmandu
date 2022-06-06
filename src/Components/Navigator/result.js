@@ -10,6 +10,7 @@ function Result(props) {
     } else {
       mode = "light";
     }
+    //shows data in 4 side of screen according to position of the map
     if (props.mousePosition[0] < 777 && props.mousePosition[1] < 400) {
       resultClass = "topleft";
     } else if (props.mousePosition[0] < 777 && props.mousePosition[1] > 400) {
