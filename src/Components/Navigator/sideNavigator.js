@@ -192,10 +192,12 @@ function SideNavigator(props) {
 
               <div className="bottom-content">
                 <li className="mode">
-                  <div className="sun-moon">
-                    <i className="bx bx-sun icon sun"></i>
-                    <i className="bx bx-moon icon moon"></i>
-                  </div>
+                  {isNavActive ? (
+                    <div className="sun-moon">
+                      <i className="bx bx-sun icon sun"></i>
+                      <i className="bx bx-moon icon moon"></i>
+                    </div>
+                  ) : null}
                   <span className="mode-text text">
                     {isDarkMode ? <div>Dark Mode</div> : <div>Light Mode</div>}
                   </span>
