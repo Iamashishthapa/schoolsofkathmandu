@@ -99,7 +99,7 @@ function SideNavigator(props) {
                         id="student_count"
                         type="range"
                         min="0"
-                        max="6000"
+                        max="3300"
                         value={
                           props.student_count === "" ? 0 : props.student_count
                         }
@@ -130,7 +130,7 @@ function SideNavigator(props) {
                         id="building_count"
                         type="range"
                         min="0"
-                        max="26"
+                        max="19"
                         value={
                           props.building_count === "" ? 0 : props.building_count
                         }
